@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Web Application for Solving Protein Biosynthesis Problems">
+		<meta name="author" content="Semyon Pyankov">
+		<link rel="icon" href="img/DNAsec.png">
+
+		<title>DNAsec</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="/node_modules/bootstrap-4-grid/css/grid.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="./css/styles.css" rel="stylesheet">
+		
+		<link rel="stylesheet" type="text/css" href="./node_modules/node-waves/dist/waves.min.css">
+
+	</head>
+
+	<body>
+
+		<nav class="navbar">
+			<div class="container">
+				<div class="row">
+					<h1 class="name col-auto">DNAsec Web</h1>
+			
+					<ul class="links col offset-md-1 align-items-center">
+						<li class="nav-item">
+							<a class="link" target="blank" href="https://github.com/CalamityDeadshot/DNAsec">DNAsec Android</a>
+						</li>
+						<li class="nav-item">
+							<a class="link" target="blank" href="https://github.com/CalamityDeadshot">GitHub</a>
+						</li>
+						<!-- <li class="nav-item"></li> -->
+					</ul>
+
+				</div>
+			</div>			
+		</nav>
+
+		<div class="container">
+			<div class="row row-content align-items-center justify-content-start">
+				<!-- <div class="col-xl-2 col-lg-3 col-md-4 col-5"><h2>Initial data:</h2></div> -->
+				<div class="col-auto"><h2>Initial data:</h2></div>
+				<div class="col mt-sm-0 mt-2">
+					<label class="custom-checkbox-container">
+						<input type="checkbox" name="DNA-is-matrix" id="DNA-is-matrix">
+						All types of RNA are synthesized on a DNA matrix
+						<span class="checkmark"></span>
+						<span class="ripple"></span>
+					</label>
+
+				</div>
+				<div class="spinner col-auto mt-md-0 mt-2">
+						<div class="">
+							Sequence
+						</div>
+						<div class="">
+							<form>
+								<select id="sequence-type" name="sequence-type">
+									<option id="spinner_item_0" selected value="0">DNA</option>
+									<option id="spinner_item_1" value="1">mRNA</option>
+									<option id="spinner_item_2" value="2">tRNA</option>
+								</select>
+							</form>
+						</div>
+				</div>
+			</div>
+
+
+			<div class="row row-content">
+				<!-- <span class="codon">ATG</span><span class="codon">ATG</span><span class="codon">ATG</span><span class="codon">ATG</span> -->
+				<div class="col-12 input-sequence-wrap">
+					<span class="input-sequence"></span>
+				</div>
+			</div>
+
+			<div class="row row-content input-buttons justify-content-center">
+				<button class="col-auto input-btn btn-adenine m-1">A</button>
+				<button class="col-auto input-btn btn-thymine m-1">T</button>
+				<button class="col-auto input-btn btn-guanine m-1">G</button>
+				<button class="col-auto input-btn btn-cytosine m-1">C</button>
+			</div>
+			<div class="row row-content input-buttons justify-content-lg-end justify-content-center">
+				<button class="col-auto input-btn btn-clear m-1">Clear All</button>
+				<button class="col-auto input-btn btn-erase m-1">Erase</button>
+			</div>
+
+			<div class="row row-content align-items-center">
+				<h2 class="col-auto">Result:</h2>
+				<span class="col grey-text before_entering_text">Start typing sequence</span>
+			</div>
+
+			<div class="row row-content">
+				<span class="grey-text col-12" id="result-head_1">mRNA</span>
+				<span class="result col-12" id="result_1"></span>
+			</div>
+
+			<div class="row row-content">
+				<span class="grey-text col-12" id="result-head_2">tRNA</span>
+				<span class="result col-12" id="result_2">ATGTGC</span>
+			</div>
+
+			<div class="row row-content">
+				<span class="grey-text col-12" id="result-head_3">Amino acid chain</span>
+				<span class="result col-12" id="result_3">Tyr-Asn</span>
+			</div>
+
+
+		</div><!-- /.container -->
+
+		<script src="./node_modules/node-waves/dist/waves.min.js"></script>
+		<script src="./js/scripts.js"></script>
+
+	</body>
+</html>

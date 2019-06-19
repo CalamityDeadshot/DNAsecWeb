@@ -1,0 +1,324 @@
+body {
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	background-color: #FAFAFA;
+}
+
+form {
+	display: inline-block;
+}
+
+h2 {
+	font-weight: 500;
+	padding: 0;
+	margin: 0;
+}
+
+::selection {
+  background: #E04F60; /* WebKit/Blink Browsers */
+  color: white;
+}
+::-moz-selection {
+  background: #E04F60; /* Gecko Browsers */
+  color: white;
+}
+
+.navbar {
+	color: #fff;
+	background-color: #E04F60;
+	padding: 25px 0;
+	box-shadow: 0px -3px 6px 5px rgba(0,0,0,0.5);
+	margin-bottom: 36px;
+}
+
+.name {
+	position: relative;
+	align-self: center;
+	font-size: 24px;
+	margin-left: 85px;
+}
+
+.name:before {
+	content: '';
+	position: absolute;
+	top: -18px;
+	left: -70px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-image: url('../img/DNAsec.png');
+	background-size: cover;
+	filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+}
+
+.links {
+	display: flex;
+	justify-content: flex-start;
+	align-self: center;
+	list-style: none;
+}
+
+.nav-item {
+	display: inline;
+	margin-right: 20px;
+}
+
+.link {
+	position: relative;
+	color: #fff;
+	text-decoration: none;
+}
+
+.link:after {
+	position: absolute;
+	content: '';
+	width: 0;
+	bottom: 0;
+	right: 0;
+	transition: .3s;
+	height: 2px;
+	background-color: #fff;
+}
+
+.link:hover:after {
+	width: 100%;
+	left: 0;
+}
+
+.row-content {
+	margin-bottom: 24px;
+}
+
+#sequence-type {
+	font-size: 20px;
+	border-radius: 10px;
+	padding: 3px;
+	background-color: transparent;
+}
+
+#sequence-type option {
+	background-color: #FAE0E0;
+}
+
+/*#sequence-type option[selected] {
+	background-color: #E04F60;
+	color: white;
+}*/
+
+#sequence-type:focus, #sequence-type:hover {
+	outline: none;
+}
+
+
+.custom-checkbox-container {
+  position: relative;
+  display: block;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute !important;
+  top: 1px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  transition: .2s;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-checkbox-container:hover input ~ .checkmark {
+  background-color: #eee;
+}
+
+.custom-checkbox-container:active input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-checkbox-container input:checked ~ .checkmark {
+  background-color: #E04F60;
+  border: 2px solid #E04F60;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.ripple {
+	content: "";
+	position: absolute !important;
+	height: 35px;
+  	width: 35px;
+	top: -6.5px;
+    left: -2.9px;
+	border-radius: 50%;
+	/*background-color: rgba(255, 0, 0, .5);*/
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-checkbox-container .checkmark:after {
+  left: 4px;
+  top: -2px;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 1.5px 1.5px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.spinner div {
+	display: inline-block;
+}
+
+.input-sequence-wrap {
+	text-align: center;
+	min-height: 30px;
+	border-bottom: 1px solid #eee;
+	transition: max-height .5s;
+}
+
+.input-sequence {
+	overflow-wrap: normal;
+	word-wrap: break-word;
+	opacity: 1;
+	transition: all .1s;
+	visibility: visible;
+}
+
+.colored_span {
+	transition: .5s background-color;
+}
+
+.colored_span:hover {
+	background-color: rgba(255, 136, 0, 1);
+}
+
+.colored_0 {
+	background-color: rgba(255, 136, 0, .5);
+}
+.colored_1 {
+	background-color: rgba(255, 187, 51, .5);
+}
+.colored_2 {
+	background-color: rgba(0, 153, 204, .5);
+}
+.colored_3 {
+	background-color: rgba(170, 102, 204, .5);
+}
+
+.result {
+	border-bottom: 1px solid #eee;
+	margin-top: 18px;
+	min-height: 24px;
+	opacity: 1;
+	transition: all .1s;
+	visibility: visible;
+}
+
+.input-btn {
+	color: #fff;
+	background-color: #E04F60;
+	border: none;
+	margin-top: 0 !important;
+	padding: 12px 36px;
+	border-radius: 7px;
+	transition: .3s;
+	font-weight: 700;
+}
+
+.input-btn:active {
+
+}
+
+.input-btn:focus {
+	outline: none;
+}
+
+.btn-adenine {
+	background-color: #ff8800;
+}
+
+.btn-adenine:hover {
+	
+}
+
+.btn-thymine {
+	background-color: #ffbb11;
+}
+
+.btn-guanine {
+	background-color: #0099cc;
+}
+
+.btn-cytosine {
+	background-color: #aa66cc;
+}
+
+.btn-clear, .btn-erase {
+	background-color: #d81b60;
+	border-radius: 4px;
+	transform: translateY(-68px);
+	padding: 12px 30px;
+}
+
+.grey-text {
+	color: #aaa;
+	font-size: 18px;
+}
+
+.before_entering_text {
+	opacity: 1;
+	transition: all .3s;
+	visibility: visible;
+}
+
+.text__faded {
+	opacity: 0;
+	visibility: hidden;
+}
+
+@media (max-width: 360px) {
+	.input-btn {
+		padding: 12px 30px;
+	}
+}
+
+@media (max-width: 991px) {
+	.btn-clear, .btn-erase {
+		background-color: #d81b60;
+		border-radius: 4px;
+		transform: translateY(0);
+		padding: 12px 30px;
+	}
+} 
