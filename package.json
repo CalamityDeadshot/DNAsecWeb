@@ -1,0 +1,24 @@
+{
+  "name": "dnasecweb",
+  "version": "1.0.0",
+  "description": "Web Application for Solving Protein Biosynthesis Problems",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run lite",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalamityDeadshot/DNAsecWeb.git"
+  },
+  "author": "Semyon Pyankov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalamityDeadshot/DNAsecWeb/issues"
+  },
+  "homepage": "https://github.com/CalamityDeadshot/DNAsecWeb#readme",
+  "devDependencies": {
+    "lite-server": "^2.5.3"
+  }
+}
