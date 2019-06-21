@@ -9,14 +9,11 @@
 
 		<title>DNAsec</title>
 
-		<!-- Bootstrap core CSS -->
-		<link href="/node_modules/bootstrap-4-grid/css/grid.min.css" rel="stylesheet">
-
-		<!-- Custom styles for this template -->
+		 <!-- build:css css/main.css -->
+		<link href="./css/grid.min.css" rel="stylesheet">
 		<link href="./css/styles.css" rel="stylesheet">
-		
 		<link rel="stylesheet" type="text/css" href="./node_modules/node-waves/dist/waves.min.css">
-
+		<!-- endbuild -->
 	</head>
 
 	<body>
@@ -84,6 +81,7 @@
 				<button class="col-auto input-btn btn-cytosine m-1">C</button>
 			</div>
 			<div class="row row-content input-buttons justify-content-lg-end justify-content-center">
+				<span class="grey-text keys-notif d-none d-lg-block align-self-center m-auto">You can also type with corresponding keyboard kyes!</span>
 				<button class="col-auto input-btn btn-clear m-1">Clear All</button>
 				<button class="col-auto input-btn btn-erase m-1">Erase</button>
 			</div>
@@ -94,25 +92,34 @@
 			</div>
 
 			<div class="row row-content">
-				<span class="grey-text col-12" id="result-head_1">mRNA</span>
-				<span class="result col-12" id="result_1"></span>
-			</div>
+				<div class="result-container col-12 col-lg-4">
+					<div class="row result_container">
+						<span class="grey-text col-12" id="result-head_1">mRNA</span>
+						<span class="result col-12" id="result_1"></span>
+					</div>
+				</div>
 
-			<div class="row row-content">
-				<span class="grey-text col-12" id="result-head_2">tRNA</span>
-				<span class="result col-12" id="result_2">ATGTGC</span>
-			</div>
+				<div class="result-container col-12 col-lg-4">
+					<div class="row result_container">
+						<span class="grey-text col-12" id="result-head_2">tRNA</span>
+						<span class="result col-12" id="result_2"></span>
+					</div>
+				</div>
 
-			<div class="row row-content">
-				<span class="grey-text col-12" id="result-head_3">Amino acid chain</span>
-				<span class="result col-12" id="result_3">Tyr-Asn</span>
+				<div class="result-container col-12 col-lg-4">
+					<div class="row result_container">
+						<span class="grey-text col-12" id="result-head_3">Amino acid chain</span>
+						<span class="result col-12" id="result_3"></span>
+					</div>
+				</div>
 			</div>
 
 
 		</div><!-- /.container -->
-
+	
+		<!-- build:js js/main.js -->
 		<script src="./node_modules/node-waves/dist/waves.min.js"></script>
 		<script src="./js/scripts.js"></script>
-
+		<!-- endbuild -->
 	</body>
 </html>

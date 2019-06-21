@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run lite",
-    "lite": "lite-server"
+    "lite": "lite-server",
+    "clean": "rimraf dist",
+    "imagemin": "imagemin img/* --out-dir=\"dist/img\"",
+    "usemin": "usemin index.html -d dist --htmlmin -o dist/index.html",
+    "build": "npm run clean && npm run imagemin && npm run usemin"
   },
   "repository": {
     "type": "git",
@@ -19,11 +23,28 @@
   },
   "homepage": "https://github.com/CalamityDeadshot/DNAsecWeb#readme",
   "devDependencies": {
-    "lite-server": "^2.5.3"
+    "browser-sync": "^2.26.7",
+    "cssmin": "^0.4.3",
+    "del": "^4.1.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-cli": "^2.2.0",
+    "gulp-flatmap": "^1.0.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-rev": "^9.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglify-es": "^1.0.4",
+    "gulp-usemin": "^0.3.29",
+    "htmlmin": "0.0.7",
+    "lite-server": "^2.5.3",
+    "rimraf": "^2.6.3",
+    "uglify-js-es6": "^2.8.9",
+    "usemin-cli": "^0.5.1"
   },
   "dependencies": {
     "@material/select": "^2.3.1",
     "bootstrap-4-grid": "^2.4.1",
+    "gulp-uglifyes": "^0.2.1",
     "node-waves": "^0.7.6"
   }
 }

@@ -16,6 +16,10 @@ h2 {
 	margin: 0;
 }
 
+a:focus {
+	outline: none;
+}
+
 ::selection {
   background: #E04F60; /* WebKit/Blink Browsers */
   color: white;
@@ -23,6 +27,17 @@ h2 {
 ::-moz-selection {
   background: #E04F60; /* Gecko Browsers */
   color: white;
+}
+
+@keyframes fade_out {
+	0% {
+		opacity: 1;
+		visibility: visible;
+	}
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .navbar {
@@ -118,6 +133,7 @@ h2 {
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
+  transition: .3s;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -155,6 +171,14 @@ h2 {
   background-color: #ccc;
 }
 
+.custom-checkbox-container:hover input[disabled] ~ .checkmark {
+  background-color: #fff;
+}
+
+.custom-checkbox-container:active input[disabled] ~ .checkmark {
+  background-color: #fff;
+}
+
 /* When the checkbox is checked, add a blue background */
 .custom-checkbox-container input:checked ~ .checkmark {
   background-color: #E04F60;
@@ -177,6 +201,14 @@ h2 {
     left: -2.9px;
 	border-radius: 50%;
 	/*background-color: rgba(255, 0, 0, .5);*/
+}
+
+.custom-checkbox-container input[disabled] ~ .checkmark {
+	opacity: .4;
+}
+
+.custom-checkbox-container input[disabled] ~ .ripple {
+	opacity: 0;
 }
 
 /* Show the checkmark when checked */
@@ -208,7 +240,7 @@ h2 {
 	transition: max-height .5s;
 }
 
-.input-sequence {
+.input-sequence, .result {
 	overflow-wrap: normal;
 	word-wrap: break-word;
 	opacity: 1;
@@ -217,16 +249,21 @@ h2 {
 }
 
 .colored_span {
-	transition: .5s background-color;
+	transition: .5s;
 }
 
 .colored_span:hover {
-	background-color: rgba(255, 136, 0, 1);
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .colored_0 {
 	background-color: rgba(255, 136, 0, .5);
 }
+/* .colored_0:hover {
+	background-color: rgba(255, 136, 0, 1);
+} */
+
 .colored_1 {
 	background-color: rgba(255, 187, 51, .5);
 }
@@ -237,9 +274,14 @@ h2 {
 	background-color: rgba(170, 102, 204, .5);
 }
 
+.result_container {
+	padding: 0 10px;
+}
+
 .result {
 	border-bottom: 1px solid #eee;
 	margin-top: 18px;
+	margin-bottom: 18px;
 	min-height: 24px;
 	opacity: 1;
 	transition: all .1s;
@@ -257,20 +299,12 @@ h2 {
 	font-weight: 700;
 }
 
-.input-btn:active {
-
-}
-
 .input-btn:focus {
 	outline: none;
 }
 
 .btn-adenine {
 	background-color: #ff8800;
-}
-
-.btn-adenine:hover {
-	
 }
 
 .btn-thymine {
@@ -292,6 +326,10 @@ h2 {
 	padding: 12px 30px;
 }
 
+.keys-notif {
+	transform: translateX(117.5px);
+}
+
 .grey-text {
 	color: #aaa;
 	font-size: 18px;
@@ -304,8 +342,8 @@ h2 {
 }
 
 .text__faded {
-	opacity: 0;
-	visibility: hidden;
+	animation-duration: .2s;
+	animation-name: fade_out;
 }
 
 @media (max-width: 360px) {
