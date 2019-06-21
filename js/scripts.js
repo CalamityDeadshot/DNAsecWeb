@@ -1,3 +1,7 @@
+
+// TODO: добавить выделение кодона и соотв. ему результатов при фокусе
+// TODO: добавить объяснение
+
 const adenineBtn = document.querySelector('.btn-adenine');
 const thymineBtn = document.querySelector('.btn-thymine');
 const guanineBtn = document.querySelector('.btn-guanine');
@@ -9,6 +13,7 @@ const beforeEnteringText = document.querySelector('.before_entering_text');
 const spinner = document.querySelector('#sequence-type');
 const customCheckboxContainer = document.querySelector(".custom-checkbox-container");
 const DnaIsMatrixCheckbox = document.querySelector("#DNA-is-matrix");
+const navbar = document.querySelector(".navbar");
 
 const firstResultHead = document.querySelector('#result-head_1');
 const firstResultField = document.querySelector('#result_1');
@@ -18,6 +23,9 @@ const secondResultField = document.querySelector('#result_2');
 
 const thirdResultHead = document.querySelector('#result-head_3');
 const thirdResultField = document.querySelector('#result_3');
+
+const explanationAccordion = document.querySelector(".explanation-accordion");
+const explanationAccordionBtn = document.querySelector(".explanation-accordion-btn");
 
 
 const INCOMPLETE_SEQUENCE = "Attention: incomplete sequence"
@@ -72,14 +80,37 @@ const allResultTextFields = [
   thirdResultField
 ];
 
+const explanationForDNA = [
+  'By the <a class="link_regular" href="https://en.wikipedia.org/wiki/Complementarity_(molecular_biology)">principle of complementarity</a>, mRNA is synthesized on the template DNA (transcription process).',
+  'The translation process occurs in the ribosome. <br>Transport RNA (tRNA) molecules, the anticodons of which are complementary to the mRNA codons in the ribosome, recognize the mRNA sequence',
+  'After the tRNA molecules recognize the mRNA codons, the amino acids (AA) of the corresponding tRNA are attached to each other (with the formation of a peptide bond), forming a protein chain.'
+];
+
+const explanationForMatrixDNA = [
+  'All types of RNA are synthesized on a DNA matrix. <br>Then, by the <a class="link_regular" href="https://en.wikipedia.org/wiki/Complementarity_(molecular_biology)">principle of complementarity</a>, tRNA is synthesized on the template DNA.',
+  'According to the principle of complementarity, based on tRNA anticodons, we find the nucleotide sequence of mRNA codons.',
+  'Based on the mRNA codons, the amino acid sequence is synthesized.'
+];
+
+const explanationForMRNA = [
+  'Using the <a class="link_regular" href="https://en.wikipedia.org/wiki/Complementarity_(molecular_biology)">principle of complementarity</a>, it is possible to reconstruct the DNA fragment, which was a basis for mRNA synthesis.',
+  explanationForDNA[1],
+  explanationForDNA[2]
+];
+
+const explanationForTRNA = [
+  'Using the <a class="link_regular" href="https://en.wikipedia.org/wiki/Complementarity_(molecular_biology)">principle of complementarity</a>, it is possible to reconstruct the mRNA fragment recognized by the tRNA anticodons',
+  'Using the principle of complementarity, it is possible to reconstruct the DNA fragment, which was a basis for mRNA synthesis.',
+  explanationForDNA[2]
+];
+
 Waves.attach('.input-btn', ['waves-float']);
 Waves.attach('.ripple');
+Waves.attach('.accordion-btn');
 Waves.init();
 
 function performClick(element) {
-  return function() {
-    Waves.ripple(element);
-  }
+  Waves.ripple(element);
 }
 
 let count = 0;
@@ -160,9 +191,9 @@ function solveForDNA(lastCodon) {
       secondResultLastCodon += "C";
     } 
   });
-  firstResultField.innerHTML += `<span class="colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
-  secondResultField.innerHTML += `<span>${secondResultLastCodon}; </span>`;
-  thirdResultField.innerHTML += `<span>${handleAminoAcid(firstResultLastCodon)}</span>`
+  firstResultField.innerHTML += `<span class="result_piece colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
+  secondResultField.innerHTML += `<span class="result_piece">${secondResultLastCodon}; </span>`;
+  thirdResultField.innerHTML += `<span class="result_piece">${handleAminoAcid(firstResultLastCodon)}</span>`
 };
 
 function solveForMatrixDNA(lastCodon) {
@@ -182,14 +213,13 @@ function solveForMatrixDNA(lastCodon) {
       secondResultLastCodon += "G";
     } 
   });
-  firstResultField.innerHTML += `<span class="colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
-  secondResultField.innerHTML += `<span>${secondResultLastCodon}; </span>`;
-  thirdResultField.innerHTML += `<span>${handleAminoAcid(firstResultLastCodon)}</span>`
+  firstResultField.innerHTML += `<span class="result_piece colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
+  secondResultField.innerHTML += `<span class="result_piece">${secondResultLastCodon}; </span>`;
+  thirdResultField.innerHTML += `<span class="result_piece">${handleAminoAcid(firstResultLastCodon)}</span>`
 };
 
 function solveForMRNA(lastCodon) {
   let lastCodonSplitted = lastCodon.split("");
-  console.log(lastCodon);
   
   lastCodonSplitted.forEach( (element) => {
     if (element == "A") {
@@ -207,9 +237,9 @@ function solveForMRNA(lastCodon) {
     } 
   });
 
-  firstResultField.innerHTML += `<span class="colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
-  secondResultField.innerHTML += `<span>${secondResultLastCodon}; </span>`;
-  thirdResultField.innerHTML += `<span>${handleAminoAcid(lastCodon)}</span>`
+  firstResultField.innerHTML += `<span class="result_piece colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
+  secondResultField.innerHTML += `<span class="result_piece">${secondResultLastCodon}; </span>`;
+  thirdResultField.innerHTML += `<span class="result_piece">${handleAminoAcid(lastCodon)}</span>`
 }
 
 function solveForTRNA(lastCodon) {
@@ -231,12 +261,14 @@ function solveForTRNA(lastCodon) {
     } 
   });
 
-  firstResultField.innerHTML += `<span class="colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
-  secondResultField.innerHTML += `<span>${secondResultLastCodon}; </span>`;
-  thirdResultField.innerHTML += `<span>${handleAminoAcid(secondResultLastCodon)}</span>`
+  firstResultField.innerHTML += `<span class="result_piece colored_span colored_${color_index}">${firstResultLastCodon}</span>`;
+  secondResultField.innerHTML += `<span class="result_piece">${secondResultLastCodon}; </span>`;
+  thirdResultField.innerHTML += `<span class="result_piece">${handleAminoAcid(secondResultLastCodon)}</span>`
 }
 
 function executeSolving(lastCodon) {
+
+  explanationAccordionBtn.disabled = false;
   let spinnerSelected = parseInt(spinner.options[spinner.selectedIndex].value);
   firstResultLastCodon = "";
   secondResultLastCodon = "";
@@ -260,19 +292,22 @@ function executeSolving(lastCodon) {
   }
 };
 
-/*function solveMRNAspan(DNAspan) {
-  console.log(DNAspan.split(""));
-};*/
-
 function removeFade() {
   allCodonTextFields.forEach( (element) => {
     element.classList.remove("text__faded");
   });
 };
 
+function collapseAccordion(accordion) {
+  let panel = Array.from(accordion.children)[1]
+  let button = Array.from(accordion.children)[0];
+  panel.style.maxHeight = null;
+  button.classList.remove("accordion-btn_active");
+}
+
 function handleInputsOnClick(button) { // Adds inputs to container and colors codons by btn pressed
   return function() {
-    // console.log(sequenceContainer.innerHTML.length);
+
     removeFade();
 
     if (count == 0) {
@@ -280,22 +315,24 @@ function handleInputsOnClick(button) { // Adds inputs to container and colors co
       lastCodon = button.textContent;
       initialSequenseSpan = button.textContent;
       beforeEnteringText.textContent = INCOMPLETE_SEQUENCE;
-      beforeEnteringText.classList.remove("text__faded");
+      beforeEnteringText.classList.remove("before_entering_text__faded");
+      explanationAccordionBtn.disabled = true;
+      collapseAccordion(explanationAccordion);
       count++;
     } else if (count == 1) {
       sequenceContainer.innerHTML += button.textContent;
       lastCodon += button.textContent;
       initialSequenseSpan += button.textContent;
       count++;
+      explanationAccordionBtn.disabled = true
     } else if (count == 2) {
       sequenceContainer.innerHTML = sequenceContainer.innerHTML.substring(0, sequenceContainer.innerHTML.length - 2);
       initialSequenseSpan += button.textContent;
-      sequenceContainer.innerHTML += `<span class="colored_span">${initialSequenseSpan}</span>`;
+      sequenceContainer.innerHTML += `<span class="result_piece colored_span">${initialSequenseSpan}</span>`;
       sequenceContainer.lastChild.classList.add(`colored_${color_index}`);
-      beforeEnteringText.classList.add("text__faded")
+      beforeEnteringText.classList.add("before_entering_text__faded")
 
       lastCodon += button.textContent;
-      // console.log("Last codon: " + lastCodon);
       executeSolving(lastCodon);
       if (color_index < 3) {
         color_index++;
@@ -315,8 +352,10 @@ function handleInputsOnKeyPress(key) { // Adds inputs to container and colors co
     lastCodon = key;
     initialSequenseSpan = key;
     beforeEnteringText.textContent = INCOMPLETE_SEQUENCE;
-    beforeEnteringText.classList.remove("text__faded");
+    beforeEnteringText.classList.remove("before_entering_text__faded");
     count++;
+    explanationAccordionBtn.disabled = true;
+    collapseAccordion(explanationAccordion);
   } else if (count == 1) {
     sequenceContainer.innerHTML += key;
     lastCodon += key;
@@ -325,12 +364,11 @@ function handleInputsOnKeyPress(key) { // Adds inputs to container and colors co
   } else if (count == 2) {
     sequenceContainer.innerHTML = sequenceContainer.innerHTML.substring(0, sequenceContainer.innerHTML.length - 2);
     initialSequenseSpan += key;
-    sequenceContainer.innerHTML += `<span class="colored_span">${initialSequenseSpan}</span>`;
+    sequenceContainer.innerHTML += `<span class="result_piece colored_span">${initialSequenseSpan}</span>`;
     sequenceContainer.lastChild.classList.add(`colored_${color_index}`);
-    beforeEnteringText.classList.add("text__faded")
+    beforeEnteringText.classList.add("before_entering_text__faded")
 
     lastCodon += key;
-    // console.log("Last codon: " + lastCodon);
     executeSolving(lastCodon);
     if (color_index < 3) {
       color_index++;
@@ -348,18 +386,19 @@ function buildResultsByNucleotides(nucleotide) {
     lastCodon = nucleotide;
     initialSequenseSpan = nucleotide;
     beforeEnteringText.textContent = INCOMPLETE_SEQUENCE;
-    beforeEnteringText.classList.remove("text__faded");
+    beforeEnteringText.classList.remove("before_entering_text__faded");
     count++;
+    explanationAccordionBtn.disabled = true;
+    collapseAccordion(explanationAccordion);
   } else if (count == 1) {
     lastCodon += nucleotide;
     initialSequenseSpan += nucleotide;
     count++;
   } else if (count == 2) {
     initialSequenseSpan += nucleotide;
-    beforeEnteringText.classList.add("text__faded")
+    beforeEnteringText.classList.add("before_entering_text__faded");
 
     lastCodon += nucleotide;
-    // console.log("Last codon: " + lastCodon);
     executeSolving(lastCodon);
     if (color_index < 3) {
       color_index++;
@@ -387,11 +426,11 @@ function clearAllFields() {
   }
 
   beforeEnteringText.innerHTML = "Start typing sequence";
-  beforeEnteringText.classList.remove("text__faded");
-  count = 0;
-  color_index = 0;
+  beforeEnteringText.classList.remove("before_entering_text__faded");
   initialSequenseSpan = "";
   lastCodon = "";
+  explanationAccordionBtn.disabled = true;
+  collapseAccordion(explanationAccordion);
 };
 
 allCodonTextFields.forEach( (element) => {
@@ -404,6 +443,8 @@ allCodonTextFields.forEach( (element) => {
     } else {
         element.innerHTML = "";
     }
+    count = 0;
+    color_index = 0;
   });
 });
 
@@ -417,6 +458,9 @@ let eraseLastCodon = "";
 
 function eraseLast() { // Erases last digit in input field and handles result fields afterwards
   if (sequenceContainer.innerHTML.length > 0) {
+    beforeEnteringText.classList.remove("before_entering_text__faded");
+    explanationAccordionBtn.disabled = true;
+    collapseAccordion(explanationAccordion);
     eraseLastCodon = sequenceContainer.lastChild.textContent;
     if ( sequenceContainer.lastChild.tagName == "SPAN") {
       count = 2;
@@ -432,6 +476,7 @@ function eraseLast() { // Erases last digit in input field and handles result fi
         color_index--;
       }
 
+
     } else {
       sequenceContainer.innerHTML = sequenceContainer.innerHTML.substring(0, sequenceContainer.innerHTML.length - 1);
       initialSequenseSpan = initialSequenseSpan.substring(0, initialSequenseSpan.length - 1);
@@ -443,17 +488,25 @@ function eraseLast() { // Erases last digit in input field and handles result fi
         if (sequenceContainer.lastChild.classList[1].split("_").pop() == 3) {
           color_index = 3;
         }
-        color_index = parseInt(sequenceContainer.lastChild.classList[1].split("_").pop()) + 1;
+        color_index = parseInt(sequenceContainer.lastChild.classList[2].split("_").pop()) + 1;
+        beforeEnteringText.classList.add("before_entering_text__faded");
+        explanationAccordionBtn.disabled = false;
 
       }
       
     }
+  } 
+  if (sequenceContainer.innerHTML.length == 0) {
+    beforeEnteringText.classList.remove("before_entering_text__faded");
+    beforeEnteringText.textContent = "Start typing sequence";
   }
 }
 
 eraseBtn.addEventListener('click', eraseLast)
 
-customCheckboxContainer.addEventListener('click', performClick(document.querySelector('.ripple')));
+customCheckboxContainer.addEventListener('click', function() {
+    Waves.ripple(document.querySelector('.ripple'));
+  });
 
 spinner.addEventListener('click', function(el){ // Colors spinner items
   let options = spinner.children;
@@ -499,32 +552,38 @@ spinner.addEventListener("change", function() {
   }
 });
 
-handleInputsOnClick(adenineBtn);
 
 document.addEventListener('keydown', (event) => {
   switch(event.key) {
     case "Backspace":
       eraseLast();
+      performClick(eraseBtn);
+      collapseAccordion(explanationAccordion);
       break;
 
     case "a":
       handleInputsOnKeyPress("A");
+      performClick(adenineBtn);
       break;
 
     case "t":
       handleInputsOnKeyPress(thymineBtn.textContent);
+      performClick(thymineBtn);
       break;
 
     case "u":
       handleInputsOnKeyPress(thymineBtn.textContent);
+      performClick(thymineBtn);
       break;
 
     case "g":
       handleInputsOnKeyPress("G");
+      performClick(guanineBtn);
       break;
 
     case "c":
       handleInputsOnKeyPress("C");
+      performClick(cytosineBtn);
       break;
   }
 });
@@ -542,3 +601,55 @@ function recalculate() {
 }
 
 DnaIsMatrixCheckbox.addEventListener("click", recalculate);
+
+window.addEventListener("scroll", () => {
+  if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+    navbar.classList.add("navbar-collapsed");
+  } else {
+    navbar.classList.remove("navbar-collapsed");
+  }
+});
+
+document.querySelectorAll(".accordion-btn").forEach( (element) => {
+  element.addEventListener("click", () => {
+  element.classList.toggle("accordion-btn_active");
+
+  let panel = element.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+});
+
+explanationAccordion.addEventListener("click", () => {
+  if (!explanationAccordionBtn.disabled) {
+    let explanationFields = Array.from(document.querySelector('.explanation-list').children);
+    let spinnerSelected = parseInt(spinner.options[spinner.selectedIndex].value);
+    switch(spinnerSelected) {
+      case ID_DNA:
+        if (DnaIsMatrixCheckbox.checked) {
+          explanationFields.forEach( (field, i) => {
+            field.innerHTML = explanationForMatrixDNA[i];
+          });
+        } else {
+          explanationFields.forEach( (field, i) => {
+            field.innerHTML = explanationForDNA[i];
+          });
+        }
+        break;
+
+      case ID_mRNA: 
+        explanationFields.forEach( (field, i) => {
+            field.innerHTML = explanationForMRNA[i];
+          });
+        break;
+
+      case ID_tRNA: 
+        explanationFields.forEach( (field, i) => {
+            field.innerHTML = explanationForTRNA[i];
+          });
+    }
+  }
+});

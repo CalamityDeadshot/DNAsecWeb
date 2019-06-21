@@ -5,6 +5,7 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify-es').default,
 	usemin = require('gulp-usemin'),
 	rev = require('gulp-rev'),
+	imagemin = require('gulp-imagemin'),
 	cleanCss = require('gulp-clean-css'),
 	flatmap = require('gulp-flatmap'),
 	htmlmin = require('gulp-htmlmin'),
@@ -40,7 +41,7 @@ gulp.task('usemin', () => {
 		.pipe(flatmap((stream, file) => {
 			return stream
 				.pipe(usemin({
-					css: [rev()], 
+					css: [cleanCss(), rev()], 
 					html: [() => {return htmlmin({ collapseWhitespace: true })}],
 					js: [ uglify(), rev() ],
 					inlinejs: [uglify()],
@@ -50,6 +51,21 @@ gulp.task('usemin', () => {
 		.pipe(gulp.dest('dist/'));
 });
 
-gulp.task('build', gulp.series('clean', 'usemin', function (done) { 
+gulp.task('copyAPK', () => {
+	return gulp.src('./DNAsec.apk')
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('imagemin', () => {
+	return gulp.src('img/*.{png,jpg}')
+	.pipe(imagemin({
+		optimizationLevel: 3,
+		progressive: true,
+		interlaced: true
+	}))
+	.pipe(gulp.dest('dist/img'));
+});
+
+gulp.task('build', gulp.series('clean', 'usemin', 'imagemin', 'copyAPK', function (done) { 
 	done(); 
 }));
