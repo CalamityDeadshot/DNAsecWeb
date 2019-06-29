@@ -1,7 +1,5 @@
 
 // TODO: добавить выделение кодона и соотв. ему результатов при фокусе
-// TODO: добавить объяснение
-
 const adenineBtn = document.querySelector('.btn-adenine');
 const thymineBtn = document.querySelector('.btn-thymine');
 const guanineBtn = document.querySelector('.btn-guanine');
@@ -504,9 +502,23 @@ function eraseLast() { // Erases last digit in input field and handles result fi
 
 eraseBtn.addEventListener('click', eraseLast)
 
-customCheckboxContainer.addEventListener('click', function() {
-    Waves.ripple(document.querySelector('.ripple'));
+customCheckboxContainer.addEventListener('mousedown', function() {
+  Waves.ripple(document.querySelector('.ripple'), {
+    wait: 100000, //ms
+    position: { // This position relative to HTML element.
+        x: 20, //px
+        y: 20  //px
+    }
   });
+});
+
+customCheckboxContainer.addEventListener('mouseup', () => {
+  Waves.calm(document.querySelector('.ripple'));
+});
+
+customCheckboxContainer.addEventListener('mouseout', () => {
+  Waves.calm(document.querySelector('.ripple'));
+});
 
 spinner.addEventListener('click', function(el){ // Colors spinner items
   let options = spinner.children;
